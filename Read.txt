@@ -1,0 +1,13 @@
+->  first install create-react-app using
+        npm install -g create-react-app
+
+->  then install yarn from yarn website to install other packages.
+
+->  then create an react app using command
+        create-react-app confusion    // note: dont use capital words in the application name
+
+-> then go inside the confusion folder and use 
+        yarn start 
+            or 
+        npm start to start the server
+
