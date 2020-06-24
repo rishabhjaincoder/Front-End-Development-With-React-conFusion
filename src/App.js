@@ -1,13 +1,22 @@
 import React,{ Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-// importing navbar from reactstrap
 import { Navbar, NavbarBrand } from 'reactstrap';
-// importing menu from the components
 import Menu from './components/MenuComponent';
+// dishes contain an array of all the dishes
+import { DISHES } from './shared/dishes';
 
 // this is class based component
 class App extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      dishes : DISHES
+      // this is how we set the state of a component
+    };
+  }
+
   render() {
     return (
       <div>
@@ -16,7 +25,7 @@ class App extends Component {
             <NavbarBrand href="/">Ristorante ConFusion</NavbarBrand>
           </div>
         </Navbar>
-        <Menu />
+        <Menu dishes={this.state.dishes} />
       </div>
     );
   }
