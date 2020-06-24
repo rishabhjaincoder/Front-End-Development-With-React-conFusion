@@ -31,7 +31,7 @@ Understanding react
 =======================================================================================
 Configuring React application
 
--> install bootstrap in order to use bootstrap classes in out react app by
+-> install bootstrap in order to use bootstrap classes in our react app by
     npm install bootstrap --save
             or
     yarn add bootstrap
@@ -77,3 +77,4 @@ Configuring React application
 -> start the server using yarn start or npm start
 
 =======================================================================================
+check ss 3 to add first react Component which is Media list
