@@ -9,6 +9,7 @@ import Contact from './ContactComponent';
 import Footer from './FooterComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { addComment } from '../redux/ActionCreators';
 
 // this will map redux store state to props, so that this can become available to all the components
 const mapStateToProps = (state) => {
@@ -19,6 +20,13 @@ const mapStateToProps = (state) => {
         leaders: state.leaders
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+    // we can use this addcomment function to dispatch action anywhere in the code and can pass
+    // this as a prop also to the child components
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+
+});
 
 class Main extends Component {
     constructor(props) {
@@ -41,6 +49,7 @@ class Main extends Component {
                 <DishDetail
                     dish={this.props.dishes.filter(dish => dish.id === parseInt(match.params.dishId, 10))[0]}
                     comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
+                    addComment={this.props.addComment}
                 />
             );
         }
@@ -63,4 +72,4 @@ class Main extends Component {
 }
 
 // if we are using react router in our application then we need to enclose this with withRouter
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
