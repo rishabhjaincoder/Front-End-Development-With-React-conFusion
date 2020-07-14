@@ -3,7 +3,7 @@ import {
     Breadcrumb, BreadcrumbItem,
     Button, Row, Col, Label
 } from 'reactstrap';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
 // functions for form validation
@@ -23,6 +23,8 @@ class Contact extends Component {
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+        this.props.resetFeedbackForm();
+        // event.preventDefault();
     }
 
     render() {
@@ -73,8 +75,8 @@ class Contact extends Component {
                     </div>
                     <div className="col-12 col-md-9">
 
-                        {/* here we use localForm instead of form if we want to use react redux form */}
-                        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                        {/* now we are using redux form instead of localform and mapping the form state to the store state */}
+                        <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
 
                             {/* we have changed formgroup row to Row classname="form-group" */}
                             <Row className="form-group">
@@ -206,7 +208,7 @@ class Contact extends Component {
                                     </Button>
                                 </Col>
                             </Row>
-                        </LocalForm>
+                        </Form>
                     </div>
                 </div>
 
