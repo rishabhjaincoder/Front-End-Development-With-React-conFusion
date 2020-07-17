@@ -1,31 +1,51 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 import { Link } from 'react-router-dom';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
-function RenderLeader({ leader }) {
-    return (
-        <div key={leader.id} className="col-12 mt-5">
-            <Media tag="li">
-                <Media left middle>
-                    <Media style={{ maxHeight: 150, maxWidth: 128 }} object src={leader.image} alt={leader.name} />
+function RenderLeader({ leader, isLoading, errMess }) {
+    if (isLoading) {
+        return (
+            <Loading />
+        );
+    }
+    else if (errMess) {
+        return (
+            <h4>{errMess}</h4>
+        );
+    }
+    else
+        return (
+            <div key={leader.id} className="col-12 mt-5">
+                <Media tag="li">
+                    <Media left middle>
+                        <Media style={{ maxHeight: 150, maxWidth: 128 }} object src={baseUrl + leader.image} alt={leader.name} />
+                    </Media>
+                    <Media body className="col-12">
+                        <Media heading>{leader.name}</Media>
+                        <p>{leader.designation}</p>
+                        <p>{leader.description}</p>
+                    </Media>
                 </Media>
-                <Media body className="col-12">
-                    <Media heading>{leader.name}</Media>
-                    <p>{leader.designation}</p>
-                    <p>{leader.description}</p>
-                </Media>
-            </Media>
-        </div>
-    );
+            </div>
+        );
 }
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <RenderLeader leader={leader} />
-        );
-    });
+    const leaders = <Stagger in>
+        {props.leaders.map((leader) => {
+            return (
+                <Fade in>
+                    <RenderLeader leader={leader}
+                        isLoading={props.leaderLoading}
+                        errMess={props.leaderErrMess} />
+                </Fade>
+            );
+        })}
+    </Stagger>
 
     return (
         <div className="container">
